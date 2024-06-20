@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Shorts Extension",
+  "name": "Shorts Block",
   "version": "1.0",
   "description": "An extension that interacts with YouTube Shorts",
   "permissions": [

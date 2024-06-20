@@ -1,50 +1,70 @@
-*{
+* {
     margin: 0;
 }
-main{
-    display: block;
+
+body{
+    padding: 10px;
 }
-body {
+h1{
+    margin-bottom: 0.85rem;
+    color:  rgb(1, 145, 145);
+}
+h3{
+        color:  rgba(1, 145, 145, 0.727);
+
+}
+body{
+    width: 12rem;
+    background-color: rgb(233, 236, 242);
+}
+
+#global-status{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.checkbox{    
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
-#switch{
+#switch {
     height: 0;
     width: 0;
     visibility: hidden;
 }
 
-label{
+label {
     cursor: pointer;
     text-indent: -9999px;
-    width: 100px;
-    height: 50px;
+    width: 60px;  
+    height: 30px; 
     background: rgb(179, 179, 179);
     display: block;
-    border-radius: 100px;
+    border-radius: 30px;  
     position: relative;
 }
 
 label::after {
     content: '';
     position: absolute;
-    top: 2.85px;
-    left: 2.5px;
-    width: 45px;
-    height: 45px;
+    top: 2px;  
+    left: 2px;  
+    width: 26px;  
+    height: 26px;  
     background: #fff;
-    border-radius: 90px;
+    border-radius: 50%;
     transition: 0.2s;
 }
+
 label:hover::after {
     background: #f4f4f4;
 }
 
 input:checked + label {
-    background: #da5557;
+    background: #da5557e2;
 }
 
 input:checked + label::after {
@@ -53,5 +73,5 @@ input:checked + label::after {
 }
 
 label:active::after {
-    width: 65px;
+    width: 36px;  
 }

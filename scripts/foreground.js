@@ -1,13 +1,12 @@
+const ATTEMPTS = 100;
 main();
 
 function main() {
     const url = document.URL;
     getChecked().then(checked => {
-        console.log(checked);
         if (checked === false) {
             return;
         }
-        console.log("passoiu");
         if (url.includes("/results?")) {
             checkOnResults();
         } else {
@@ -17,24 +16,25 @@ function main() {
 }
 
 function checkOnResults(){
-    window.addEventListener("load", function() {
-        setInterval(function() {
-            const elements = document.querySelectorAll('ytd-reel-shelf-renderer.ytd-item-section-renderer.style-scope');
-            elements.forEach(element => {
-                element.innerHTML = '';
-            });
-        }, 20); 
-    });
+    for(let i = 0; i < ATTEMPTS; i++){
+    setInterval(function() {
+        const elements = document.querySelectorAll('ytd-reel-shelf-renderer.ytd-item-section-renderer.style-scope');
+        elements.forEach(element => {
+            element.innerHTML = '';
+        });
+    }, 20); 
+}
 }
 
 function handleMain(){
-    window.addEventListener("load", function() {
-        setInterval(function() {
-            const elements = document.querySelectorAll('#content > .ytd-rich-section-renderer.style-scope');
-            elements.forEach(element => {
-                element.innerHTML = '';
-            });
-        }, 20); 
-    });
+        for(let i = 0; i < ATTEMPTS; i++){
+            setInterval(function() {
+                const elements = document.querySelectorAll('#content > .ytd-rich-section-renderer.style-scope');
+                elements.forEach(element => {
+                    element.innerHTML = '';
+                });
+            }, 20); 
+        }
+
 }
 
