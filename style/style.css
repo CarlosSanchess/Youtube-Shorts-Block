@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+}
+main{
+    display: block;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#switch{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+label{
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 100px;
+    height: 50px;
+    background: rgb(179, 179, 179);
+    display: block;
+    border-radius: 100px;
+    position: relative;
+}
+
+label::after {
+    content: '';
+    position: absolute;
+    top: 2.85px;
+    left: 2.5px;
+    width: 45px;
+    height: 45px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.2s;
+}
+label:hover::after {
+    background: #f4f4f4;
+}
+
+input:checked + label {
+    background: #da5557;
+}
+
+input:checked + label::after {
+    left: calc(100% - 2px);
+    transform: translateX(-100%);
+}
+
+label:active::after {
+    width: 65px;
+}

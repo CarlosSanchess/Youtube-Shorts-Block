@@ -17,7 +17,10 @@
         "https://www.youtube.com/*"
       ],
       "js": [
+        "/scripts/Storage.js",
         "/scripts/foreground.js"
+      ],
+      "css": [
       ]
     }
   ],

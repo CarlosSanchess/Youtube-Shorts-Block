@@ -1,12 +1,19 @@
 main();
 
-function main(){
+function main() {
     const url = document.URL;
-    if(url.includes("/results?")){
-        checkOnResults();
-    }else{
-        handleMain();
-    }
+    getChecked().then(checked => {
+        console.log(checked);
+        if (checked === false) {
+            return;
+        }
+        console.log("passoiu");
+        if (url.includes("/results?")) {
+            checkOnResults();
+        } else {
+            handleMain();
+        }
+    });
 }
 
 function checkOnResults(){
