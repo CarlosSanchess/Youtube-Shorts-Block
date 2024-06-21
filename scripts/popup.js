@@ -7,10 +7,11 @@ getChecked().then(value =>{
 })
 
 if(switchElement) {
-    switchElement.addEventListener('click', function() {
-        setChecked(getToogleStatus());
-        reloadTab();
-    });
+     switchElement.addEventListener('click', function() {
+            setChecked(getToogleStatus()).then(
+                () => reloadTab()
+            );
+        });
 } else {
     console.log("Element not Found");
 }
@@ -42,11 +43,9 @@ async function getChecked(){
 }
 
 function reloadTab(){
-    const URL = document.url;
-
-    if(URL.includes("https://youtube.com")){
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        if(tabs[0].url.includes("https://www.youtube.com") ){
             chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
-        });
-    }
+        }
+    });
 }
