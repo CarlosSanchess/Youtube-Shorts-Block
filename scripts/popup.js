@@ -42,7 +42,11 @@ async function getChecked(){
 }
 
 function reloadTab(){
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
-    });
+    const URL = document.url;
+
+    if(URL.includes("https://youtube.com")){
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
+        });
+    }
 }

@@ -4,7 +4,10 @@
 
 body{
     padding: 10px;
+    width: 12rem;
+    background-color: rgb(233, 236, 242);
 }
+
 h1{
     margin-bottom: 0.85rem;
     color:  rgb(1, 145, 145);
@@ -13,11 +16,6 @@ h3{
         color:  rgba(1, 145, 145, 0.727);
 
 }
-body{
-    width: 12rem;
-    background-color: rgb(233, 236, 242);
-}
-
 #global-status{
     display: flex;
     align-items: center;
