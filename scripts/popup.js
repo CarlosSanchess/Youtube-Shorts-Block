@@ -9,6 +9,7 @@ getChecked().then(value =>{
 if(switchElement) {
     switchElement.addEventListener('click', function() {
         setChecked(getToogleStatus());
+        reloadTab();
     });
 } else {
     console.log("Element not Found");
@@ -40,3 +41,8 @@ async function getChecked(){
     return false;
 }
 
+function reloadTab(){
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
+    });
+}
