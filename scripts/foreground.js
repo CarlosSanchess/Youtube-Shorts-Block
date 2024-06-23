@@ -1,4 +1,5 @@
-const ATTEMPTS = 100;
+const ATTEMPTS = 20;
+//See if there is non ending loop in the other set itnerval.
 main();
 
 function main() {
@@ -7,34 +8,71 @@ function main() {
         if (checked === false) {
             return;
         }
-        if (url.includes("/results?")) {
-            checkOnResults();
-        } else {
-            handleMain();
-        }
+        handleShorts(url);
     });
 }
 
-function checkOnResults(){
-    for(let i = 0; i < ATTEMPTS; i++){
-    setInterval(function() {
-        const elements = document.querySelectorAll('ytd-reel-shelf-renderer.ytd-item-section-renderer.style-scope');
-        elements.forEach(element => {
-            element.innerHTML = '';
-        });
-    }, 20); 
-}
+function handleShorts(url){
+    handleResults(url);
+    handleTrending(url);
+    handleHome(url);
 }
 
-function handleMain(){
-        for(let i = 0; i < ATTEMPTS; i++){
-            setInterval(function() {
-                const elements = document.querySelectorAll('#content > .ytd-rich-section-renderer.style-scope');
+
+function handleTrending(url){
+    if(!url.includes("/trending?")) { return; }
+    const observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+            if (mutation.type === 'childList') {
+                const elements = document.querySelectorAll('#dismissible.ytd-video-renderer.style-scope');
+                no = elements.length;
                 elements.forEach(element => {
-                    element.innerHTML = '';
-                });
-            }, 20); 
-        }
+                    const allAnchors = element.querySelectorAll('a');
+                    allAnchors.forEach(anchor => {
 
+                        if (anchor.getAttribute("href").includes("shorts/")) {
+                            let parentElement = element.parentElement;
+                            if (parentElement) {
+                                while (parentElement.firstChild) {
+                                    parentElement.removeChild(parentElement.firstChild);
+                                }
+                                parentElement.outerHTML = "";
+                            }
+                        }                        
+                    });
+                });
+            }
+        });
+    });
+
+    const config = { childList: true, subtree: true };
+
+    observer.observe(document.body, config);
+
+}
+
+
+function handleResults(url){
+    if(!url.includes("/results?")){return;}
+    for(let i = 0; i < ATTEMPTS; i++){
+        setInterval(function() {
+            const elements = document.querySelectorAll('ytd-reel-shelf-renderer.ytd-item-section-renderer.style-scope');
+            elements.forEach(element => {
+                element.innerHTML = '';
+            });
+        }, 20); 
+    }
+}
+
+function handleHome(url){ 
+    if(url.includes("/results" || "/trending?")){return;}
+    for(let i = 0; i < ATTEMPTS; i++){
+        setInterval(function() {
+            const elements = document.querySelectorAll('#content > .ytd-rich-section-renderer.style-scope');
+            elements.forEach(element => {
+                element.innerHTML = '';
+            });
+        }, 20); 
+    }
 }
 
