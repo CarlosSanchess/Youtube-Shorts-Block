@@ -1,5 +1,5 @@
 const ATTEMPTS = 20;
-//See if there is non ending loop in the other set itnerval.
+
 main();
 
 function main() {
@@ -16,6 +16,8 @@ function handleShorts(url){
     handleResults(url);
     handleTrending(url);
     handleHome(url);
+    handleVideo(url);
+    handleView(url);
 }
 
 
@@ -65,7 +67,7 @@ function handleResults(url){
 }
 
 function handleHome(url){ 
-    if(url.includes("/results" || "/trending?")){return;}
+    if(url.includes("/results" || "/trending?" || "/shorts/")){return;}
     for(let i = 0; i < ATTEMPTS; i++){
         setInterval(function() {
             const elements = document.querySelectorAll('#content > .ytd-rich-section-renderer.style-scope');
@@ -76,3 +78,26 @@ function handleHome(url){
     }
 }
 
+function handleView(url){
+    let index = url.indexOf("/shorts/");
+    if(index === -1) { return; }
+
+    let shorts_id = url.slice(index + ("/shorts/".length));
+    if(shorts_id.length == 0){return;}
+    
+    location.replace("https://www.youtube.com/watch?v=".concat(shorts_id));
+}
+
+function handleVideo(url){
+    console.log(url)
+    if(!url.includes("/watch?v=")){return;}
+    for(let i = 0; i < ATTEMPTS; i++){
+        console.log("Try to catch.");
+        setInterval(function() {
+            const elements = document.querySelectorAll('ytd-reel-shelf-renderer.style-scope.ytd-item-section-renderer');
+            elements.forEach(element => {
+                element.innerHTML = '';
+            });
+        }, 20); 
+    }
+}
