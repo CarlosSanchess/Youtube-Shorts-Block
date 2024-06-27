@@ -6,18 +6,33 @@
 }
 
 body{
-    padding: 10px;
-    width: 12rem;
-    background-color: rgb(233, 236, 242);
+    padding: 13px;
+    width: 14rem;
+    background-color: rgb(240, 240, 242);
 }
 
-h1{
+#title-section {
+    display: flex;
+    align-items:center;
+    margin-bottom: 0.5rem;
+}
+#title-section img {
+    margin-right: 15px; 
+    padding-bottom: 0.3rem;
+}
+#desc-section{
     margin-bottom: 0.85rem;
-    color:  rgb(1, 145, 145);
 }
-h3{
-    color:  rgba(1, 145, 145, 0.727);
-
+h1{
+    color:  rgb(1, 148, 148);
+    margin-bottom: 0.35rem;
+}
+h2{
+    color:  rgba(1, 145, 145, 0.70);
+}
+p{
+    color: rgb(105, 104, 106);
+    text-align: center;
 }
 #global-status{
     display: flex;
