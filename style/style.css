@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 * {
     margin: 0;
+    font-family: "Merriweather" ,sans-serif;
+    font-optical-sizing: auto;
 }
 
 body{
@@ -13,7 +16,7 @@ h1{
     color:  rgb(1, 145, 145);
 }
 h3{
-        color:  rgba(1, 145, 145, 0.727);
+    color:  rgba(1, 145, 145, 0.727);
 
 }
 #global-status{
