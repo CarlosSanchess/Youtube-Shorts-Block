@@ -19,5 +19,5 @@ In this version, the extension may not work properly on browsers that do not use
 
 - [X] Automatically convert Shorts videos into a regular format(In progress).
 
-- [X] Remove Youtube Shorts section, while watching a normal video.
+- [X] Remove Youtube Shorts section, while watching a video.
 

@@ -18,10 +18,10 @@ body{
 }
 #title-section img {
     margin-right: 15px; 
-    padding-bottom: 0.3rem;
+    padding-bottom: 0.5rem;
 }
 #desc-section{
-    margin-bottom: 0.85rem;
+    padding-bottom: 0.85rem;
 }
 h1{
     color:  rgb(1, 148, 148);
