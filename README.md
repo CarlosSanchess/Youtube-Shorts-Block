@@ -24,6 +24,6 @@ In this version, the extension may not work properly on browsers that do not use
 ## Install
 
 <a href="https://addons.mozilla.org/en-US/firefox/addon/shorts-block/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_128x128.png" width="48" /></a>
-<a href=""><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_128x128.png" width="48"/></a>
+<a href="https://chromewebstore.google.com/detail/kpcihppklbfdolkgkojhlgiblmeheihp"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_128x128.png" width="48"/></a>
 <a href="https://support.brave.com/hc/en-us/articles/360017909112-How-can-I-add-extensions-to-Brave"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/brave/brave_128x128.png" width="48"/></a>
 
