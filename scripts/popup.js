@@ -1,4 +1,6 @@
 let switchElement = document.getElementById("switch");
+let showMoreInput = document.getElementById("show-more-input");
+let moreInfoSection = document.getElementById("info-section");
 
 getChecked().then(value =>{
     if(value === true){
@@ -14,6 +16,24 @@ if(switchElement) {
         });
 } else {
     console.log("Element not Found");
+}
+
+if(showMoreInput){
+    showMoreInput.addEventListener("click",function(){
+        if(getShowMoreStatus() && moreInfoSection){
+            moreInfoSection.style.display = "block";
+        }else{
+            moreInfoSection.style.display = "none";
+        }
+    })
+}else{
+    console.log("Element not Found");
+}
+
+
+/* Aux Functions */
+function getShowMoreStatus(){
+    return document.getElementById("show-more-input").checked;
 }
 
 function getToogleStatus(){
@@ -49,3 +69,4 @@ function reloadTab(){
         }
     });
 }
+
