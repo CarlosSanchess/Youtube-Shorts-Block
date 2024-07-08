@@ -14,6 +14,6 @@ async function getChecked(){
         setChecked(false);
         return false;
     }
-    return false;
+    console.log(result);
+    return true;
 }
-

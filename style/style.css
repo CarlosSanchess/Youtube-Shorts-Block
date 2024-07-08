@@ -180,3 +180,8 @@ p{
 #show-more-input:checked ~ #full-info {
     display: block;
 }
+
+
+#info-section{
+    display: none;
+}
