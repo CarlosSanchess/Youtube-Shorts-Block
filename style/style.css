@@ -12,7 +12,7 @@ body{
     font-size: 11.7px;
 }
 main{
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 #title-section {
     display: flex;
@@ -105,6 +105,11 @@ p{
 
 /*Smaller Switches*/
 
+#soft-block-status,
+#view-status,
+#full-block-status{
+ margin-bottom:  0.25rem;
+}
 .toggle-switch {
     cursor: pointer;
     text-indent: -9999px;
@@ -146,7 +151,7 @@ p{
 }
 
 
-/*More Style*/
+/* Style*/
 
 .switch {
     height: 0;
@@ -181,7 +186,7 @@ p{
     display: block;
 }
 
-
 #info-section{
     display: none;
 }
+

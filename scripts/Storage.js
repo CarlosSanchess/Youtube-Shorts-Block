@@ -1,19 +1,18 @@
-function setChecked(status){
-    chrome.storage.local.set({'Shorts': status}, function() {
+function setConfig(config){
+    chrome.storage.local.set({Shorts: config}, function() {
         console.log('Settings saved');
       });
 }
 
 
-async function getChecked(){ 
-    let result = await chrome.storage.local.get(["Shorts"]);
-    if(result.Shorts === true){
-        return true;
-    }
-    if(result.Shorts == undefined){
-        setChecked(false);
-        return false;
-    }
-    console.log(result);
-    return true;
+async function getConfig(){ 
+    return new Promise((resolve, reject) => {
+        chrome.storage.local.get({Shorts: []}, (result) => {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError);
+            } else {
+                resolve(result.Shorts);
+            }
+        });
+    });
 }

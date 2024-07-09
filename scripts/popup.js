@@ -8,7 +8,7 @@ const showMoreInput = document.getElementById("show-more-input");
 const moreInfoSection = document.getElementById("info-section");
 
 
-initializeActiveStatus()
+initializeActiveStatus();
 
 if (switchActive) {
     switchActive.addEventListener('click', handleClick);
@@ -41,8 +41,9 @@ if(showMoreInput){
 function initializeActiveStatus(){ 
     try {
         getConfigFromStorage().then(config => {
+            console.log(config);
             if (config !== undefined) {
-                setConfig(config);
+                restoreConfig(config);
             }
         });
     } catch (error) {
@@ -56,7 +57,8 @@ function getShowMoreStatus(){
 }
 
 function handleClick() {
-    setConfig(getConfig());
+    updateUI();
+    setConfigStorage();
     reloadTab();
 }
 
@@ -88,34 +90,36 @@ function getViewAsVideoStatus(){
     return document.getElementById("switch-vv").checked;
 }
 
-async function getConfigFromStorage(){ 
-    return  chrome.storage.local.get(["Shorts"]);
+async function getConfigFromStorage() { 
+    return new Promise((resolve, reject) => {
+        chrome.storage.local.get({Shorts: []}, (result) => {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError);
+            } else {
+                resolve(result.Shorts);
+            }
+        });
+    });
 }
 
 /* SETTERS */
 
  /*Change the front end, based on stored values*/
-function setConfig(config){
-    if(config[0] == 1){
-        setActiveStatus(true);
+function restoreConfig(config){
+    if(config[0]){setActiveStatus(true);}
+    if(config[1]){setFullBlockStatus(true);}
+    if(config[2]){setSoftBlockStatus(true);}
+    if(config[3]){setViewAsVideoStatus(true)}
+}
+function updateUI(){
+    let config = getConfig();
+    if(config[0] == true){
         setSoftBlockStatus(true);
     }else{
-        setActiveStatus(false);
-        setFullBlockStatus(false);
         setSoftBlockStatus(false);
         setViewAsVideoStatus(false);
-    }
-    if(config[1] == 1){
-        setFullBlockStatus(true);
-        setSoftBlockStatus(true);
-        setViewAsVideoStatus(false);
-    }
-    if(config[2] == 1){
-        setSoftBlockStatus(true);
-    }
-    if(config[3] == 1){
-        setViewAsVideoStatus(true);
         setFullBlockStatus(false);
+        return;
     }
 }
 
@@ -134,9 +138,9 @@ function setViewAsVideoStatus(status){
     return document.getElementById("switch-vv").checked = status;
 }
 
-async function setChecked(){
+async function setConfigStorage(){
     let status = getConfig();
-    await chrome.storage.local.set({'Shorts': status}, function() {
+    await chrome.storage.local.set({Shorts: status}, function() {
         console.log('Settings saved');
       });
 }

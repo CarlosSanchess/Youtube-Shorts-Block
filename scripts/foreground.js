@@ -4,15 +4,15 @@ main();
 
 function main() {
     const url = document.URL;
-    getChecked().then(checked => {
-        if (checked === false) {
+    getConfig().then(config => {
+        if (checked == undefined) {
             return;
         }
-        handleShorts(url);
+        handleShorts(url, config);
     });
 }
 
-function handleShorts(url){
+function handleShorts(url, config){
     handleResults(url);
     handleTrending(url);
     handleHome(url);
