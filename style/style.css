@@ -9,7 +9,7 @@ body{
     padding: 13px 13px 7px 13px;
     width: 14rem;
     background-color: rgb(240, 240, 242);
-    font-size: 11.7px;
+    font-size: 10.9px;
 }
 main{
     margin-bottom: 0.75rem;
@@ -35,8 +35,7 @@ h2{
 }
 h3{
     color: rgb(81, 80, 82);
-    font-weight: 200;
-
+    font-weight: 400;
 }
 p{
     color: rgb(105, 104, 106);
