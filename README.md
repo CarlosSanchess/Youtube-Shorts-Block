@@ -21,6 +21,21 @@ In this version, the extension may not work properly on browsers that do not use
 
 - [X] Remove Youtube Shorts section, while watching a video.
 
+- [X] Full Block Youtube Shorts.
+
+- [X] Personal Settings. Different modes for the extension.
+
+## Modes 
+
+#### Full Block: 
+Shorts get fully blocked/removed.
+
+#### Soft Block:
+The extension will only remove the Youtube Shorts from the Home/Trending/Results Page, but you can watch shorts if you want on their section.
+
+#### View as Video:
+You can watch youtube shorts, in normal video format.(This mode is not compatible with Full Block)
+
 ## Install
 
 <a href="https://addons.mozilla.org/en-US/firefox/addon/shorts-block/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_128x128.png" width="48" /></a>
