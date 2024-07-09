@@ -8,47 +8,50 @@
     <link href="style/style.css" rel="stylesheet">
 </head>
 <body>
-    <main>
-        <div id = "title-section">
-            <img src="icons/icon48.png" alt="icon-img">
-            <div id="desc-section">
-                <h1 id ="title">Shorts Block</h1>
-                <p>No more annoying shorts.</p>
-            </div>
-        </div>
-        <div id="global-status" class="status">
-            <h2>Active:</h2>
-            <div class="checkbox">
-                <input type="checkbox" id="switch" class="switch"/><label for="switch" id="main-switch">Switch</label>                                
-            </div>
-        </div>
-    </main>
+            <main>
+                <div id = "title-section">
+                    <img src="icons/icon48.png" alt="icon-img">
+                    <div id="desc-section">
+                        <h1 id ="title">Shorts Block</h1>
+                        <p>No more annoying shorts.</p>
+                    </div>
+                </div>
+                <div id="global-status" class="status">
+                    <h2>Active:</h2>
+                    <div class="checkbox">
+                        <input type="checkbox" id="switch" class="switch"/><label for="switch" id="main-switch">Switch</label>                                
+                    </div>
+                </div>
+            </main>
 
-    <section id="info-section">
-        <div id="full-block-status" class="status">
-            <h3>Full Block:</h3>
-            <div class="checkbox">
-                <input type="checkbox" id="switch-fb" class="switch"/><label for="switch-fb" class="toggle-switch">Switch</label>                                
-            </div>
+            <section id="info-section">
+                <div id="full-block-status" class="status">
+                    <h3>Full Block:</h3>
+                    <div class="checkbox">
+                        <input type="checkbox" id="switch-fb" class="switch"/><label for="switch-fb" class="toggle-switch">Switch</label>                                
+                    </div>
+                </div>
+                <div id="soft-block-status" class="status">
+                    <h3>Soft Block:</h3>
+                    <div class="checkbox">
+                        <input type="checkbox" id="switch-sb" class="switch"/><label for="switch-sb" class="toggle-switch">Switch</label>                                
+                    </div>
+                </div>
+                <div id="view-status" class="status">
+                    <h3>View as Video:</h3>
+                    <div class="checkbox">
+                        <input type="checkbox" id="switch-vv" class="switch"/><label for="switch-vv" class="toggle-switch">Switch</label>                                
+                    </div>
+                </div>
+            </section>
+        
+            <footer id="show-more">
+                <input type="checkbox" id="show-more-input"/>
+                <label for="show-more-input" class="arrow-label"><i class="fa-solid fa-angle-down"></i> <span id="more-less"><h3>More</h3></span></label>
+                <a href="https://github.com/CarlosSanchess/Youtube-Shorts-Block/blob/master/README.md" target="_blank" style="color:black"><i class="fa-solid fa-info"></i></a>
+            </footer>
         </div>
-        <div id="soft-block-status" class="status">
-            <h3>Soft Block:</h3>
-            <div class="checkbox">
-                <input type="checkbox" id="switch-sb" class="switch"/><label for="switch-sb" class="toggle-switch">Switch</label>                                
-            </div>
-        </div>
-        <div id="view-status" class="status">
-            <h3>View as Video:</h3>
-            <div class="checkbox">
-                <input type="checkbox" id="switch-vv" class="switch"/><label for="switch-vv" class="toggle-switch">Switch</label>                                
-            </div>
-        </div>
-    </section>
 
-    <div id="show-more">
-        <input type="checkbox" id="show-more-input"/>
-        <label for="show-more-input" class="arrow-label"><i class="fa-solid fa-angle-down"></i> <span id="more-less"><h3>More</h3></span></label>
-    </div>
     <script src="scripts/popup.js"></script>
 </body>
 </html>
