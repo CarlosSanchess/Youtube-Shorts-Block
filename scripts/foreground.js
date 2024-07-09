@@ -5,7 +5,7 @@ main();
 function main() {
     const url = document.URL;
     getConfig().then(config => {
-        if (checked == undefined) {
+        if (config == undefined || config == []) {
             return;
         }
         handleShorts(url, config);
@@ -13,11 +13,19 @@ function main() {
 }
 
 function handleShorts(url, config){
-    handleResults(url);
-    handleTrending(url);
-    handleHome(url);
-    handleVideo(url);
-    handleView(url);
+    if(!config[0]){return;}
+    if(config[1]){
+        handleFullBlock(url);
+    }
+    if(config[2]){
+        handleResults(url);
+        handleTrending(url);
+        handleHome(url);
+        handleVideo(url);
+    }
+    if(config[3]){
+        handleView(url);
+    }
 }
 
 
@@ -89,15 +97,35 @@ function handleView(url){
 }
 
 function handleVideo(url){
-    console.log(url)
     if(!url.includes("/watch?v=")){return;}
     for(let i = 0; i < ATTEMPTS; i++){
-        console.log("Try to catch.");
         setInterval(function() {
             const elements = document.querySelectorAll('ytd-reel-shelf-renderer.style-scope.ytd-item-section-renderer');
             elements.forEach(element => {
                 element.innerHTML = '';
             });
+        }, 20); 
+    }
+}
+
+function handleFullBlock(url){
+    if(url.includes("/results" || "/trending?")){return;}
+    if(url.includes("/shorts/")){
+        window.stop();
+        history.back();
+    }
+    for(let i = 0; i < ATTEMPTS; i++){
+        setInterval(function() {
+            let element_mini = document.querySelector('a#endpoint.yt-simple-endpoint.style-scope.ytd-mini-guide-entry-renderer[title="Shorts"]');
+            let element = document.querySelector('a#endpoint.yt-simple-endpoint.style-scope.ytd-guide-entry-renderer[title="Shorts"]');
+            if(element_mini != null){
+                element_mini.innerHTML = '';
+                element_mini.outerHTML = '';
+            }
+            if(element != null){
+                element.innerHTML = '';
+                element.outerHTML = '';
+            }            
         }, 20); 
     }
 }

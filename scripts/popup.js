@@ -11,12 +11,12 @@ const moreInfoSection = document.getElementById("info-section");
 initializeActiveStatus();
 
 if (switchActive) {
-    switchActive.addEventListener('click', handleClick);
+    switchActive.addEventListener('click', () => handleClick(0));
     
     if (switchFullBlock && switchSoftBlock && switchViewVideo) {
-        switchFullBlock.addEventListener('click', handleClick);
-        switchSoftBlock.addEventListener('click', handleClick);
-        switchViewVideo.addEventListener('click', handleClick);
+        switchFullBlock.addEventListener('click', () => handleClick(1));
+        switchSoftBlock.addEventListener('click', () => handleClick(2));
+        switchViewVideo.addEventListener('click', () => handleClick(3));
     }
 } else {
     console.log("Element not found");
@@ -56,10 +56,29 @@ function getShowMoreStatus(){
     return document.getElementById("show-more-input").checked;
 }
 
-function handleClick() {
-    updateUI();
+function handleClick(source) {
+    updateUI(source);
     setConfigStorage();
     reloadTab();
+}
+function updateUI(source){
+    let config = getConfig();
+    if(config[0] == true){
+        setSoftBlockStatus(true);
+    }else{
+        setSoftBlockStatus(false);
+        setViewAsVideoStatus(false);
+        setFullBlockStatus(false);
+        return;
+    }
+    if(config[1] == true && source == 1){
+        setFullBlockStatus(true);
+        setViewAsVideoStatus(false);
+    }
+    if(config[3] == true && source == 3){
+        setFullBlockStatus(false);
+        setViewAsVideoStatus(true);
+    }
 }
 
 /* GETTERS */
@@ -110,17 +129,6 @@ function restoreConfig(config){
     if(config[1]){setFullBlockStatus(true);}
     if(config[2]){setSoftBlockStatus(true);}
     if(config[3]){setViewAsVideoStatus(true)}
-}
-function updateUI(){
-    let config = getConfig();
-    if(config[0] == true){
-        setSoftBlockStatus(true);
-    }else{
-        setSoftBlockStatus(false);
-        setViewAsVideoStatus(false);
-        setFullBlockStatus(false);
-        return;
-    }
 }
 
 function setActiveStatus(status){
