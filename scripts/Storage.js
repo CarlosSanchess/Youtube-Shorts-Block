@@ -5,10 +5,10 @@ function setConfig(config){
 }
 
 
-async function getConfig(){ 
-    return new Promise((resolve, reject) => {
-        chrome.storage.local.get({Shorts: []}, (result) => {
-                resolve(result.Shorts);
+async function getConfig() { 
+    return new Promise((resolve) => {
+        chrome.storage.local.get({ Shorts: [] }, (result) => {
+            resolve(result.Shorts);
         });
     });
 }
