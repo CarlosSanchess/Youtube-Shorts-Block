@@ -109,7 +109,7 @@ function getViewAsVideoStatus(){
     return document.getElementById("switch-vv").checked;
 }
 
-async function getConfig() { 
+async function getConfigFromStorage() { 
     return new Promise((resolve) => {
         chrome.storage.local.get({ Shorts: [] }, (result) => {
             resolve(result.Shorts);
