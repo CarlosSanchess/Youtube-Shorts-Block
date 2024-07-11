@@ -57,7 +57,10 @@ function getShowMoreStatus(){
 }
 
 function handleClick(source) {
-    updateUI(source);
+    if(updateUI(source) == -1){
+        setConfigStorage();
+        return;
+    }
     setConfigStorage();
     reloadTab();
 }
@@ -65,11 +68,14 @@ function updateUI(source){
     let config = getConfig();
     if(config[0] == true){
         setSoftBlockStatus(true);
+        if(source == 2){
+            return -1;
+        }
     }else{
         setSoftBlockStatus(false);
         setViewAsVideoStatus(false);
         setFullBlockStatus(false);
-        return;
+        if(source != 0){return -1;}
     }
     if(config[1] == true && source == 1){
         setFullBlockStatus(true);
