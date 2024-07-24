@@ -64,6 +64,7 @@ function handleTrending(url){
 
 function handleResults(url){
     if(!url.includes("/results?")){return;}
+    console.log("Results");
     for(let i = 0; i < ATTEMPTS; i++){
         setInterval(function() {
             const elements = document.querySelectorAll('ytd-reel-shelf-renderer.ytd-item-section-renderer.style-scope');
@@ -129,3 +130,11 @@ function handleFullBlock(url){
         }, 20); 
     }
 }
+
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.message === "Changed Url") {
+        main();
+    }
+  });
+  
