@@ -1,5 +1,4 @@
 const ATTEMPTS = 20;
-
 main();
 
 function main() {
@@ -64,7 +63,6 @@ function handleTrending(url){
 
 function handleResults(url){
     if(!url.includes("/results?")){return;}
-    console.log("Results");
     for(let i = 0; i < ATTEMPTS; i++){
         setInterval(function() {
             const elements = document.querySelectorAll('ytd-reel-shelf-renderer.ytd-item-section-renderer.style-scope');

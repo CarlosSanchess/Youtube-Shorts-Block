@@ -1,8 +1,6 @@
-
-        chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             if (changeInfo.status === 'complete' && tab.url.match('https:\/\/.*.youtube.com\/.*')) {
                 getConfig().then(config => {
-
                     if (config == undefined || config == [] || !config[0]) {
                         return;
                     }else{
