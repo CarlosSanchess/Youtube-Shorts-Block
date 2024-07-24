@@ -108,7 +108,7 @@ function handleVideo(url){
 }
 
 function handleFullBlock(url){
-    if(url.includes("/results" || "/trending?")){return;}
+    if(url.includes("/trending?")){return;}
     if(url.includes("/shorts/")){
         window.stop();
         history.back();
@@ -117,6 +117,15 @@ function handleFullBlock(url){
         setInterval(function() {
             let element_mini = document.querySelector('a#endpoint.yt-simple-endpoint.style-scope.ytd-mini-guide-entry-renderer[title="Shorts"]');
             let element = document.querySelector('a#endpoint.yt-simple-endpoint.style-scope.ytd-guide-entry-renderer[title="Shorts"]');
+            
+            document.querySelectorAll('yt-chip-cloud-chip-renderer').forEach(chipRenderer => {
+                console.log(chipRenderer.length);
+                const childElement = chipRenderer.querySelector('yt-formatted-string#text[title="Shorts"]');
+                if (childElement) {
+                    chipRenderer.remove();
+                }
+            });
+            
             if(element_mini != null){
                 element_mini.innerHTML = '';
                 element_mini.outerHTML = '';
