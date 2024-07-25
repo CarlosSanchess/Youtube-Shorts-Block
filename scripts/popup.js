@@ -37,11 +37,17 @@ if(showMoreInput){
 }else{
     console.log("Element not Found");
 }
+document.addEventListener('DOMContentLoaded', function () {
+
+    const tooltip = document.getElementById('version');
+    let manifestData = chrome.runtime.getManifest();
+
+    tooltip.textContent = `${manifestData.version}`;
+});
 
 function initializeActiveStatus(){ 
     try {
         getConfigFromStorage().then(config => {
-            console.log(config);
             if (config !== undefined) {
                 restoreConfig(config);
             }
@@ -116,13 +122,16 @@ function getViewAsVideoStatus(){
 }
 
 async function getConfigFromStorage() { 
-    return new Promise((resolve) => {
-        chrome.storage.local.get({ Shorts: [] }, (result) => {
-            resolve(result.Shorts);
+    return new Promise((resolve, reject) => {
+        chrome.storage.local.get({Shorts: []}, (result) => {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError);
+            } else {
+                resolve(result.Shorts);
+            }
         });
     });
 }
-
 
 /* SETTERS */
 

@@ -1,6 +1,21 @@
 const ATTEMPTS = 20;
-
 main();
+
+let lastUrl = location.href;
+
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach(() => {
+    if (lastUrl !== location.href) {
+      lastUrl = location.href;
+      main();
+    }
+  });
+});
+
+const config = { subtree: true, childList: true };
+
+observer.observe(document, config);
+
 
 function main() {
     const url = document.URL;
@@ -38,8 +53,8 @@ function handleTrending(url){
                 no = elements.length;
                 elements.forEach(element => {
                     const allAnchors = element.querySelectorAll('a');
+                    if(allAnchors.length <= 0 || !allAnchors){return;}
                     allAnchors.forEach(anchor => {
-
                         if (anchor.getAttribute("href").includes("shorts/")) {
                             let parentElement = element.parentElement;
                             if (parentElement) {
@@ -120,13 +135,12 @@ function handleFullBlock(url){
             let element = document.querySelector('a#endpoint.yt-simple-endpoint.style-scope.ytd-guide-entry-renderer[title="Shorts"]');
             
             document.querySelectorAll('yt-chip-cloud-chip-renderer').forEach(chipRenderer => {
-                console.log(chipRenderer.length);
                 const childElement = chipRenderer.querySelector('yt-formatted-string#text[title="Shorts"]');
                 if (childElement) {
                     chipRenderer.remove();
                 }
             });
-
+            
             if(element_mini != null){
                 element_mini.innerHTML = '';
                 element_mini.outerHTML = '';
@@ -138,9 +152,3 @@ function handleFullBlock(url){
         }, 20); 
     }
 }
-
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.message === "Changed Url") {
-        main();
-    }
-  });
