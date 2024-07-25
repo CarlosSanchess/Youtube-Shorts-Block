@@ -35,8 +35,11 @@ h2{
 }
 h3{
     color: rgb(81, 80, 82);
-    font-weight: 200;
+    font-weight: 250;
 
+}
+h4{
+    font-weight: 350;
 }
 p{
     color: rgb(105, 104, 106);
@@ -196,4 +199,7 @@ p{
 #info-section{
     display: none;
     margin-bottom: 0.6rem;
+}
+#version-section{
+    margin-top: 0.5rem;
 }

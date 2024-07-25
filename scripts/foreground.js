@@ -1,6 +1,22 @@
 const ATTEMPTS = 20;
 main();
 
+let lastUrl = location.href;
+
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach(() => {
+    if (lastUrl !== location.href) {
+      lastUrl = location.href;
+      main();
+    }
+  });
+});
+
+const config = { subtree: true, childList: true };
+
+observer.observe(document, config);
+
+
 function main() {
     const url = document.URL;
     getConfig().then(config => {
@@ -37,8 +53,8 @@ function handleTrending(url){
                 no = elements.length;
                 elements.forEach(element => {
                     const allAnchors = element.querySelectorAll('a');
+                    if(allAnchors.length <= 0 || !allAnchors){return;}
                     allAnchors.forEach(anchor => {
-
                         if (anchor.getAttribute("href").includes("shorts/")) {
                             let parentElement = element.parentElement;
                             if (parentElement) {
@@ -137,11 +153,3 @@ function handleFullBlock(url){
         }, 20); 
     }
 }
-
-
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.message === "Changed Url") {
-        main();
-    }
-  });
-  

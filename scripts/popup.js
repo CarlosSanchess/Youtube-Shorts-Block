@@ -37,6 +37,13 @@ if(showMoreInput){
 }else{
     console.log("Element not Found");
 }
+document.addEventListener('DOMContentLoaded', function () {
+
+    const tooltip = document.getElementById('version');
+    let manifestData = chrome.runtime.getManifest();
+
+    tooltip.textContent = `${manifestData.version}`;
+});
 
 function initializeActiveStatus(){ 
     try {
