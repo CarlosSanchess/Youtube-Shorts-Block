@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
 function initializeActiveStatus(){ 
     try {
         getConfigFromStorage().then(config => {
-            console.log(config);
             if (config !== undefined) {
                 restoreConfig(config);
             }
