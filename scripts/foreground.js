@@ -81,9 +81,30 @@ function handleResults(url){
     if(!url.includes("/results?")){return;}
     for(let i = 0; i < ATTEMPTS; i++){
         setInterval(function() {
+            // Original selector for older YouTube layout
             const elements = document.querySelectorAll('ytd-reel-shelf-renderer.ytd-item-section-renderer.style-scope');
             elements.forEach(element => {
                 element.innerHTML = '';
+            });
+            
+            // New selector for current YouTube search results layout
+            const gridShelfElements = document.querySelectorAll('#contents > grid-shelf-view-model');
+            gridShelfElements.forEach(element => {
+                // Check if this grid shelf contains Shorts
+                const hasShorts = element.querySelector('a[href*="/shorts/"]');
+                if (hasShorts) {
+                    element.remove();
+                }
+            });
+            
+            // Remove individual Shorts videos in search results
+            const shortsThumbnails = document.querySelectorAll('a#thumbnail[href^="/shorts/"]');
+            shortsThumbnails.forEach(thumbnail => {
+                // Find the nearest parent ytd-video-renderer
+                const videoRenderer = thumbnail.closest('ytd-video-renderer');
+                if (videoRenderer) {
+                    videoRenderer.remove();
+                }
             });
         }, 20); 
     }
