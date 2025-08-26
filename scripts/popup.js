@@ -45,15 +45,22 @@ document.addEventListener('DOMContentLoaded', function () {
     tooltip.textContent = `${manifestData.version}`;
 });
 
-function initializeActiveStatus(){ 
+function initializeActiveStatus() { 
     try {
         getConfigFromStorage().then(config => {
-            if (config !== undefined) {
+            if (config !== undefined && config.length > 0) {
                 restoreConfig(config);
+            } else {
+                setActiveStatus(true);
+                setSoftBlockStatus(true); 
+                setConfigStorage(); 
             }
         });
     } catch (error) {
         console.error("Error initializing active status:", error);
+        setActiveStatus(true);
+        setSoftBlockStatus(true);
+        setConfigStorage();
     }
 }
 
