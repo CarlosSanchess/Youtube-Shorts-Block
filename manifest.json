@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Youtube Shorts Block",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "An Open-Source Extension that Blocks YouTube Shorts.",
   "permissions": [
     "tabs",
