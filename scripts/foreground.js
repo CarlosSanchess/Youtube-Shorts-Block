@@ -1,176 +1,105 @@
 const ATTEMPTS = 20;
-main();
-
 let lastUrl = location.href;
 
-const observer = new MutationObserver((mutations) => {
-  mutations.forEach(() => {
+main();
+const observer = new MutationObserver(debounce(() => {
     if (lastUrl !== location.href) {
-      lastUrl = location.href;
-      main();
+        lastUrl = location.href;
+        main();
     }
-  });
-});
+    runHandlers();
+}, 50));
 
-const config = { subtree: true, childList: true };
-
-observer.observe(document, config);
-
+observer.observe(document.body, { childList: true, subtree: true });
 
 function main() {
-    const url = document.URL;
     getConfig().then(config => {
-        if (config == undefined || config == []) {
-            return;
-        }
-        handleShorts(url, config);
+        if (!config || !config.length) return;
+        window._config = config;
+        runHandlers();
     });
 }
 
-function handleShorts(url, config){
-    if(!config[0]){return;}
-    if(config[1]){
-        handleFullBlock(url);
-    }
-    if(config[2]){
+function runHandlers() {
+    const url = location.href;
+    const config = window._config;
+    if (!config) return;
+
+    if (config[1]) handleFullBlock(url);
+    if (config[2]) {
         handleResults(url);
         handleTrending(url);
         handleHome(url);
         handleVideo(url);
     }
-    if(config[3]){
-        handleView(url);
-    }
+    if (config[3]) handleView(url);
 }
 
 
-function handleTrending(url){
-    if(!url.includes("/trending?")) { return; }
-    const observer = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-            if (mutation.type === 'childList') {
-                const elements = document.querySelectorAll('#dismissible.ytd-video-renderer.style-scope');
-                no = elements.length;
-                elements.forEach(element => {
-                    const allAnchors = element.querySelectorAll('a');
-                    if(allAnchors.length <= 0 || !allAnchors){return;}
-                    allAnchors.forEach(anchor => {
-                        if (anchor.getAttribute("href").includes("shorts/")) {
-                            let parentElement = element.parentElement;
-                            if (parentElement) {
-                                while (parentElement.firstChild) {
-                                    parentElement.removeChild(parentElement.firstChild);
-                                }
-                                parentElement.outerHTML = "";
-                            }
-                        }                        
-                    });
-                });
+function handleTrending(url) {
+    if (!url.includes("/trending")) return;
+
+    document.querySelectorAll('#dismissible.ytd-video-renderer')
+        .forEach(el => {
+            if (el.querySelector('a[href*="shorts/"]')) {
+                el.remove();
             }
         });
-    });
-
-    const config = { childList: true, subtree: true };
-
-    observer.observe(document.body, config);
-
 }
 
+function handleResults(url) {
+    if (!url.includes("/results")) return;
 
-function handleResults(url){
-    if(!url.includes("/results?")){return;}
-    for(let i = 0; i < ATTEMPTS; i++){
-        setInterval(function() {
-            // Original selector for older YouTube layout
-            const elements = document.querySelectorAll('ytd-reel-shelf-renderer.ytd-item-section-renderer.style-scope');
-            elements.forEach(element => {
-                element.innerHTML = '';
-            });
-            
-            // New selector for current YouTube search results layout
-            const gridShelfElements = document.querySelectorAll('#contents > grid-shelf-view-model');
-            gridShelfElements.forEach(element => {
-                // Check if this grid shelf contains Shorts
-                const hasShorts = element.querySelector('a[href*="/shorts/"]');
-                if (hasShorts) {
-                    element.remove();
-                }
-            });
-            
-            // Remove individual Shorts videos in search results
-            const shortsThumbnails = document.querySelectorAll('a#thumbnail[href^="/shorts/"]');
-            shortsThumbnails.forEach(thumbnail => {
-                // Find the nearest parent ytd-video-renderer
-                const videoRenderer = thumbnail.closest('ytd-video-renderer');
-                if (videoRenderer) {
-                    videoRenderer.remove();
-                }
-            });
-        }, 20); 
-    }
+    document.querySelectorAll('ytd-reel-shelf-renderer, #contents > grid-shelf-view-model')
+        .forEach(el => {
+            if (el.querySelector('a[href*="/shorts/"]')) {
+                el.remove();
+            }
+        });
+
+    document.querySelectorAll('a#thumbnail[href^="/shorts/"]')
+        .forEach(t => t.closest('ytd-video-renderer')?.remove());
 }
 
-function handleHome(url){ 
-    if(url.includes("/results" || "/trending?" || "/shorts/")){return;}
-    for(let i = 0; i < ATTEMPTS; i++){
-        setInterval(function() {
-            const elements = document.querySelectorAll('#content > .ytd-rich-section-renderer.style-scope');
-            elements.forEach(element => {
-                element.innerHTML = '';
-            });
-        }, 20); 
-    }
+function handleHome(url) {
+    if (url.includes("/results") || url.includes("/trending") || url.includes("/shorts")) return;
+
+    document.querySelectorAll('#content > .ytd-rich-section-renderer')
+        .forEach(el => el.remove());
 }
 
-function handleView(url){
-    let index = url.indexOf("/shorts/");
-    if(index === -1) { return; }
+function handleView(url) {
+    const match = url.match(/\/shorts\/([^?]+)/);
+    if (!match) return;
 
-    let shorts_id = url.slice(index + ("/shorts/".length));
-    if(shorts_id.length == 0){return;}
-    
-    location.replace("https://www.youtube.com/watch?v=".concat(shorts_id));
+    location.replace(`https://www.youtube.com/watch?v=${match[1]}`);
 }
 
-function handleVideo(url){
-    if(!url.includes("/watch?v=")){return;}
-    for(let i = 0; i < ATTEMPTS; i++){
-        setInterval(function() {
-            const elements = document.querySelectorAll('ytd-reel-shelf-renderer.style-scope.ytd-item-section-renderer');
-            elements.forEach(element => {
-                element.innerHTML = '';
-            });
-        }, 20); 
-    }
+function handleVideo(url) {
+    if (!url.includes("/watch?v=")) return;
+
+    document.querySelectorAll('ytd-reel-shelf-renderer')
+        .forEach(el => el.remove());
 }
 
-function handleFullBlock(url){
-    if(url.includes("/trending?")){return;}
-    if(url.includes("/shorts/")){
+function handleFullBlock(url) {
+    if (url.includes("/trending")) return;
+
+    if (url.includes("/shorts/")) {
         window.stop();
         history.back();
+        return;
     }
-    for(let i = 0; i < ATTEMPTS; i++){
-        setInterval(function() {
-            let element_mini = document.querySelector('a#endpoint.yt-simple-endpoint.style-scope.ytd-mini-guide-entry-renderer[title="Shorts"]');
-            let element = document.querySelector('a#endpoint.yt-simple-endpoint.style-scope.ytd-guide-entry-renderer[title="Shorts"]');
-            
-            document.querySelectorAll('yt-chip-cloud-chip-renderer').forEach(chipRenderer => {
-                console.log(chipRenderer.length);
-                const childElement = chipRenderer.querySelector('yt-formatted-string#text[title="Shorts"]');
-                if (childElement) {
-                    chipRenderer.remove();
-                }
-            });
-            
-            if(element_mini != null){
-                element_mini.innerHTML = '';
-                element_mini.outerHTML = '';
-            }
-            if(element != null){
-                element.innerHTML = '';
-                element.outerHTML = '';
-            }            
-        }, 20); 
-    }
+
+    document.querySelectorAll(
+        'a[title="Shorts"], yt-formatted-string[title="Shorts"]'
+    ).forEach(el => el.closest('a, yt-chip-cloud-chip-renderer')?.remove());
+}
+
+function debounce(fn, delay) {
+    let t;
+    return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), delay);
+    };
 }
